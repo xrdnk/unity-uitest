@@ -1,13 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
+﻿using System;
 
-public class NetworkClient
+namespace UnityUITest.Example
 {
-    public virtual string SendServerRequest(string request)
+    public class NetworkClient
     {
-        // Seems like our example server is offline, but this method is still testable
-        throw new Exception("Server unavailable");
+        public virtual string SendServerRequest(string request)
+        {
+            // Seems like our example server is offline, but this method is still testable
+            throw new Exception("Server unavailable");
+        }
     }
 }
-

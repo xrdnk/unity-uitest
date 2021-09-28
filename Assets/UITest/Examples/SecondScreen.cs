@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class SecondScreen : MonoBehaviour 
+namespace UnityUITest.Example
 {
-    public void Close()
+    public class SecondScreen : MonoBehaviour
     {
-        Destroy(gameObject);
-    }	
+        public void Close()
+        {
+            Destroy(gameObject);
+        }
+    }
 }

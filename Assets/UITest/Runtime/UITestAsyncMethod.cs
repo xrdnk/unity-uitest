@@ -1,12 +1,14 @@
 ﻿#if USE_UNITASK
-
 using System;
 using System.IO;
 using Cysharp.Threading.Tasks;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+
+#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
+#endif
 
 namespace UnityUITest
 {

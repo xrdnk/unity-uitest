@@ -1,72 +1,70 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using NUnit.Framework;
+using UnityEngine;
 using UnityEngine.TestTools;
-using UnityUITest;
 
-public class UITestExample : UITest
+namespace UnityUITest.Example
 {
-    MockNetworkClient mockNetworkClient;
-
-    [SetUp]
-    public void Init()
+    public class UITestExample : UITest
     {
-        mockNetworkClient = new MockNetworkClient();
-        // Replace the real networkClient with mock object, it will be injected later into FirstScreen component
-        DependencyInjector.ReplaceComponent<NetworkClient>(mockNetworkClient);
-    }
+        MockNetworkClient mockNetworkClient;
 
-    [UnityTest]
-    public IEnumerator SecondScreenCanBeOpenedFromTheFirstOne()
-    {
-        yield return LoadScene("TestableGameScene");
+        [SetUp] public void Init()
+        {
+            mockNetworkClient = new MockNetworkClient();
+            // Replace the real networkClient with mock object, it will be injected later into FirstScreen component
+            DependencyInjector.ReplaceComponent<NetworkClient>(mockNetworkClient);
+        }
 
-        // Wait until object with given component appears in the scene
-        yield return WaitFor(new ObjectAppeared<FirstScreen>());
+        [UnityTest] public IEnumerator SecondScreenCanBeOpenedFromTheFirstOne()
+        {
+            yield return LoadScene("TestableGameScene");
 
-        // Wait until button with given name appears and simulate press event
-        yield return Press("Button-OpenSecondScreen");
+            // Wait until object with given component appears in the scene
+            yield return WaitFor(new ObjectAppeared<FirstScreen>());
 
-        yield return WaitFor(new ObjectAppeared<SecondScreen>());
+            // Wait until button with given name appears and simulate press event
+            yield return Press("Button-OpenSecondScreen");
 
-        // Wait until Text component with given name appears and assert its value
-        yield return AssertLabel("SecondScreen/Text", "Second screen");
+            yield return WaitFor(new ObjectAppeared<SecondScreen>());
 
-        yield return Press("Button-Close");
+            // Wait until Text component with given name appears and assert its value
+            yield return AssertLabel("SecondScreen/Text", "Second screen");
 
-        // Wait until object with given component disappears from the scene
-        yield return WaitFor(new ObjectDisappeared<SecondScreen>());
-    }
+            yield return Press("Button-Close");
 
-    [UnityTest]
-    public IEnumerator SuccessfulNetworkResponseIsDisplayedOnTheFirstScreen()
-    {
-        yield return LoadScene("TestableGameScene");
+            // Wait until object with given component disappears from the scene
+            yield return WaitFor(new ObjectDisappeared<SecondScreen>());
+        }
 
-        yield return WaitFor(new ObjectAppeared<FirstScreen>());
+        [UnityTest] public IEnumerator SuccessfulNetworkResponseIsDisplayedOnTheFirstScreen()
+        {
+            yield return LoadScene("TestableGameScene");
 
-        // Predefine the mocked server response
-        mockNetworkClient.mockResponse = "Success!";
+            yield return WaitFor(new ObjectAppeared<FirstScreen>());
 
-        yield return Press("Button-NetworkRequest");
+            // Predefine the mocked server response
+            mockNetworkClient.mockResponse = "Success!";
 
-        // Check the response displayed on UI
-        yield return AssertLabel("FirstScreen/Text-Response", "Success!");
+            yield return Press("Button-NetworkRequest");
 
-        // Assert the requested server parameter
-        Assert.AreEqual(mockNetworkClient.mockRequest, "i_need_data");
-    }
+            // Check the response displayed on UI
+            yield return AssertLabel("FirstScreen/Text-Response", "Success!");
 
-    [UnityTest]
-    public IEnumerator FailingBoolCondition()
-    {
-        yield return LoadScene("TestableGameScene");
+            // Assert the requested server parameter
+            Assert.AreEqual(mockNetworkClient.mockRequest, "i_need_data");
+        }
 
-        yield return WaitFor(new ObjectAppeared("FirstScreen"));
-        var s = Object.FindObjectOfType<FirstScreen>();
+        [UnityTest] public IEnumerator FailingBoolCondition()
+        {
+            yield return LoadScene("TestableGameScene");
 
-        // Wait until FirstScene component is disabled, this line will fail by timeout
-        // BoolCondition can be used to wait until any condition is satisfied
-        yield return WaitFor(new BoolCondition(() => !s.enabled));
+            yield return WaitFor(new ObjectAppeared("FirstScreen"));
+            var s = Object.FindObjectOfType<FirstScreen>();
+
+            // Wait until FirstScene component is disabled, this line will fail by timeout
+            // BoolCondition can be used to wait until any condition is satisfied
+            yield return WaitFor(new BoolCondition(() => !s.enabled));
+        }
     }
 }

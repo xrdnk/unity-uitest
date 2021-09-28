@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 using System.IO;
-using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -51,7 +51,7 @@ namespace UnityUITest
 #if UNITY_EDITOR
             if (name.Contains(".unity"))
             {
-                EditorApplication.LoadLevelInPlayMode(name);
+                EditorSceneManager.LoadSceneInPlayMode(name, new LoadSceneParameters(LoadSceneMode.Single));
                 yield return WaitFor(new SceneLoaded(Path.GetFileNameWithoutExtension(name)));
                 yield break;
             }

@@ -1,15 +1,16 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class MockNetworkClient : NetworkClient
+﻿namespace UnityUITest.Example
 {
-    public string mockRequest;
-    public string mockResponse;
-
-    public override string SendServerRequest(string request)
+    public class MockNetworkClient : NetworkClient
     {
-        mockRequest = request;
-        return mockResponse;
-    }
-}
+        public string mockRequest;
+        public string mockResponse;
 
+        public override string SendServerRequest(string request)
+        {
+            mockRequest = request;
+            return mockResponse;
+        }
+    }
+
+
+}
