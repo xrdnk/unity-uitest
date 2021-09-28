@@ -2,6 +2,7 @@
 using System.Collections;
 using NUnit.Framework;
 using UnityEngine.TestTools;
+using UnityUITest;
 
 public class UITestExample : UITest
 {
@@ -17,9 +18,9 @@ public class UITestExample : UITest
 
     [UnityTest]
     public IEnumerator SecondScreenCanBeOpenedFromTheFirstOne()
-    {        
+    {
         yield return LoadScene("TestableGameScene");
-        
+
         // Wait until object with given component appears in the scene
         yield return WaitFor(new ObjectAppeared<FirstScreen>());
 
@@ -41,7 +42,7 @@ public class UITestExample : UITest
     public IEnumerator SuccessfulNetworkResponseIsDisplayedOnTheFirstScreen()
     {
         yield return LoadScene("TestableGameScene");
-        
+
         yield return WaitFor(new ObjectAppeared<FirstScreen>());
 
         // Predefine the mocked server response
@@ -60,7 +61,7 @@ public class UITestExample : UITest
     public IEnumerator FailingBoolCondition()
     {
         yield return LoadScene("TestableGameScene");
-        
+
         yield return WaitFor(new ObjectAppeared("FirstScreen"));
         var s = Object.FindObjectOfType<FirstScreen>();
 
@@ -69,5 +70,3 @@ public class UITestExample : UITest
         yield return WaitFor(new BoolCondition(() => !s.enabled));
     }
 }
-
- 

@@ -1,0 +1,22 @@
+{
+    "name": "UnityUITest",
+    "rootNamespace": "UnityUITest",
+    "references": [
+        "UniTask"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.cysharp.unitask",
+            "expression": "2.2",
+            "define": "USE_UNITASK"
+        }
+    ],
+    "noEngineReferences": false
+}
